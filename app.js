@@ -19,6 +19,13 @@ mongoose.connect(process.env.CONNECTION_STRING, {
     console.log('Connection Failed');
 });
 
+// enable cors BEFORE including the controllers which need it
+const cors = require('cors');
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    methods: 'GET,POST,PUT,DELETE,HEAD,OPTIONS'
+}));
+
 app.use('/api/employers', employers);
 
 // start server
