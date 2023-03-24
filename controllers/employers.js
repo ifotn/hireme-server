@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     });*/
     // new syntax w/o callback for mongoose 7 (march 2022)
     try {
-        const employers = await Employer.find();
+        const employers = await Employer.find().sort('name');
         return res.json(employers).status(200);
     }
     catch (err) {
@@ -21,9 +21,14 @@ router.get('/', async (req, res) => {
     }
 })
 
-
-
-
-
+router.post('/', async(req, res) => {
+    try {
+        const employer = await Employer.create(req.body);
+        return res.json(employer).status(201);
+    }
+    catch (err) {
+        return res.json(err).status(400);
+    }
+})
 
 module.exports = router;
