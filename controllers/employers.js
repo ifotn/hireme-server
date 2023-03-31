@@ -31,4 +31,15 @@ router.post('/', async(req, res) => {
     }
 })
 
+router.delete('/:_id', async (req, res) => {
+    try {
+        // mongoose remove() deprecated in v7+
+        const employer = await Employer.findByIdAndDelete(req.params._id);
+        return res.json(employer).status(204); // 204: No Content
+    }
+    catch (err) {
+        return res.json(err).status(404);
+    }
+})
+
 module.exports = router;
