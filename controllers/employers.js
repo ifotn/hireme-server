@@ -42,4 +42,14 @@ router.delete('/:_id', async (req, res) => {
     }
 })
 
+router.put('/:_id', async (req, res) => {
+    try {
+        const employer = await Employer.findByIdAndUpdate(req.params._id, req.body);
+        return res.json(employer).status(202); // Accepted
+    }
+    catch (err) {
+        return res.json(err).status(404);
+    }
+})
+
 module.exports = router;
